@@ -12,7 +12,6 @@ $(function(){
     var currentPage = 0;
     
     setpage(currentPage);
-  });
   
   function setpage(pageNumber) {
     $("#form").empty();
@@ -36,65 +35,66 @@ $(function(){
               $("#form").append(htmlDate(field));
               break;
             case 'input':
-              $("#form").append(htmlInput(field));
-              break;
-          }
+                $("#form").append(htmlInput(field));
+                break;
+            }
+          });
         });
+      }
+    }
+
+    //replace these with directives or whatever it's called in angular 2
+    function htmlSelect(field) {
+      var htmlOptions = "";
+      var label = field.label;
+      if (label == undefined) { label = field.title; }
+      if (field.options[0] == "") { field.options = ["Choice 1","Choice 2","Choice 3"]; }
+
+      $.each(field.options, function(index, option) {
+        htmlOptions += "<option>" + option + "</option>";
       });
+      var htmlReturn = "<p>" + label + "</p>"
+                     + "<select>" + htmlOptions + "<select>";
+      return htmlReturn;
     }
-  }
-  
-  //replace these with directives or whatever it's called in angular 2
-  function htmlSelect(field) {
-    var htmlOptions = "";
-    var label = field.label;
-    if (label == undefined) { label = field.title; }
-    if (field.options[0] == "") { field.options = ["Choice 1","Choice 2","Choice 3"]; }
-    
-    $.each(field.options, function(index, option) {
-      htmlOptions += "<option>" + option + "</option>";
-    });
-    var htmlReturn = "<p>" + label + "</p>"
-                   + "<select>" + htmlOptions + "<select>";
-    return htmlReturn;
-  }
-  
-  function htmlTextLabel(field) {
-    var htmlReturn = "<p>" + field.label + "</p>";
-    return htmlReturn;
-  }
-  
-  function htmlYesNo(field) {
-    var htmlReturn = "<p>" + field.label + "</p>" +
-                      "<div class='btn-group' role='group' aria-label='" + field.label + "'>" +
-                        "<button type='button' class='btn btn-default' onClick='setValue(field[\"section-index\"], \"yes\")'>Yes</button>" +
-                        "<button type='button' class='btn btn-default'>No</button>" +
-                      "</div>";
-    return htmlReturn;
-  }
-  
-  function htmlDate(field) {
-    var htmlReturn = "<p>" + field.label + "</p>" +
-                      "<input type='date'>";
-    return htmlReturn;
-  }
-  
-  function htmlInput(field) {
-    var maxlength = "";
-    if (field.rules) {
-      var rule = field.rules[0].split("-");
-      if (rule[0] == "limit") { maxlength = rule[1]; }
+
+    function htmlTextLabel(field) {
+      var htmlReturn = "<p>" + field.label + "</p>";
+      return htmlReturn;
     }
-    var htmlReturn = "<p>" + field.label + "</p>" +
-                      "<input type='text' maxlength='" + maxlength + "'>";
-    return htmlReturn;
-  }
-  
-  $("#p1").click(function() { setpage(0); currentPage = 0; });
-  $("#p2").click(function() { setpage(1); currentPage = 1; });
-  $("#p3").click(function() { setpage(2); currentPage = 2; });
-  $("#p4").click(function() { setpage(3); currentPage = 3; });
-  $("#p5").click(function() { setpage(4); currentPage = 4; });
-  $("#previous").click(function() { currentPage--; setpage(currentPage); });
-  $("#next").click(function() { currentPage++; setpage(currentPage); });
+
+    function htmlYesNo(field) {
+      var htmlReturn = "<p>" + field.label + "</p>" +
+                        "<div class='btn-group' role='group' aria-label='" + field.label + "'>" +
+                          "<button type='button' class='btn btn-default' onClick='setValue(field[\"section-index\"], \"yes\")'>Yes</button>" +
+                          "<button type='button' class='btn btn-default'>No</button>" +
+                        "</div>";
+      return htmlReturn;
+    }
+
+    function htmlDate(field) {
+      var htmlReturn = "<p>" + field.label + "</p>" +
+                        "<input type='date'>";
+      return htmlReturn;
+    }
+
+    function htmlInput(field) {
+      var maxlength = "";
+      if (field.rules) {
+        var rule = field.rules[0].split("-");
+        if (rule[0] == "limit") { maxlength = rule[1]; }
+      }
+      var htmlReturn = "<p>" + field.label + "</p>" +
+                        "<input type='text' maxlength='" + maxlength + "'>";
+      return htmlReturn;
+    }
+
+    $("#p1").click(function() { setpage(0); currentPage = 0; });
+    $("#p2").click(function() { setpage(1); currentPage = 1; });
+    $("#p3").click(function() { setpage(2); currentPage = 2; });
+    $("#p4").click(function() { setpage(3); currentPage = 3; });
+    $("#p5").click(function() { setpage(4); currentPage = 4; });
+    $("#previous").click(function() { currentPage--; setpage(currentPage); });
+    $("#next").click(function() { currentPage++; setpage(currentPage); });
+  });
 });
