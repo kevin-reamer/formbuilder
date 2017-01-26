@@ -1,5 +1,5 @@
 $(function(){
-	$.getJSON("../form.json", function(form) {
+	$.getJSON("https://kevin-reamer.github.io/formbuilder/form.json", function(form) {
 		var sections = form["form-body"]["sections"];
 		var pageSections = form["form-body"]["pagination-definition"];
 		var indexes = _.pluck(pageSections["section-indexes"]);
