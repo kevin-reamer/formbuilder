@@ -1,16 +1,18 @@
 $(function(){
-	var form = {};
-  
-  var sections = form["form-body"]["sections"];
-  var pageSections = form["form-body"]["pagination-definition"];
-  var indexes = _.pluck(pageSections["section-indexes"]);
-  var valuePairs = [];
-  
-  $.each(indexes, function(i, index) {
-  	valuePairs.push({index: index, value: null});
-  });
-  
-  var currentPage = 0;
+	$.getJSON("../form.json", function(form) {
+		var sections = form["form-body"]["sections"];
+		var pageSections = form["form-body"]["pagination-definition"];
+		var indexes = _.pluck(pageSections["section-indexes"]);
+		var valuePairs = [];
+
+		$.each(indexes, function(i, index) {
+			valuePairs.push({index: index, value: null});
+		});
+
+		var currentPage = 0;
+		
+		setpage(currentPage);
+	});
   
   function setpage(pageNumber) {
   	$("#form").empty();
@@ -87,8 +89,6 @@ $(function(){
     									"<input type='text' maxlength='" + maxlength + "'>";
     return htmlReturn;
   }
-  
-  setpage(currentPage);
   
   $("#p1").click(function() { setpage(0); currentPage = 0; });
   $("#p2").click(function() { setpage(1); currentPage = 1; });
