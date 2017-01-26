@@ -1,4 +1,6 @@
 $(function(){
+  var form = {};
+  
   var sections = form["form-body"]["sections"];
   var pageSections = form["form-body"]["pagination-definition"];
   var indexes = _.pluck(pageSections["section-indexes"]);
